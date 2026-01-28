@@ -3,11 +3,11 @@
 For ICA, remember that the model assumes:
 
 $$
-X=As
-\\
-A^{-1}X=s
-\\
-WX=s
+\begin{aligned}
+X=As\\
+A^{-1}X=s\\
+WX=s\\
+\end{aligned}
 $$
 
 where we have $X \in N \times M$, $A^{-1}=W$, and $A \in N \times N$. In this case, $W$ is the “un-mixing matrix” whereas $A$ is the “mixing matrix”. Since we know nothing about $A$, we need to estimate $N^2$ terms in our matrix, which is definitely not ideal.
