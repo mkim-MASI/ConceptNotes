@@ -51,6 +51,7 @@ $$
 where $D^{-1/2}$ is equal to the reciprocal of the square root of eigenvalues (the first $k$ for $k$ components) in a diagonal matrix. Note how this whitening will ensure that our new “whitened” mixing matrix will have the property $\tilde{A}^T\tilde{A}=I$:
 
 $$
+\begin{aligned}
 \tilde{X} = \tilde{A}s
 \\
 \tilde{X}\tilde{X}^T = \tilde{A}s\tilde{X}
@@ -61,18 +62,19 @@ E[\tilde{X}\tilde{X}^T] = E[\tilde{A}ss^T\tilde{A}^T]
 \\
 E[\tilde{X}\tilde{X}^T] = \tilde{A}E[ss^T]\tilde{A}^T,\\ \text{since } \tilde{A} \text{ is constant}
 \\
-\\
-
+\end{aligned}
 $$
 
 Now, one VERY important property we must remember is that each component is assumed to be independent. Thus, the covariance (off diagonal) terms are zero for the covariance matrix of the source component signals. If we also assume the source components have unit variance, then:
 
 $$
+\begin{aligned}
 E[\tilde{X}\tilde{X}^T] = \tilde{A}E[ss^T]\tilde{A}^T
 \\
 E[\tilde{X}\tilde{X}^T] = \tilde{A}I\tilde{A}^T
 \\
 I = \tilde{A}\tilde{A}^T
+\end{aligned}
 $$
 
 See how the data turn into having a covariance of 0 after whitening:
@@ -104,11 +106,13 @@ $$
 To recall from earlier, $\tilde{A}$ is our “whitened” mixing matrix that is orthogonal and normal. From this point on, for simplicity, we will be using $W$ instead of $\tilde{A}$, where $W=\tilde{A}^{-1}=\tilde{A}^{T}$:
 
 $$
+\begin{aligned}
 Z=\tilde{A}s
 \\
 \tilde{A}^TZ=s
 \\
 WZ=s
+\end{aligned}
 $$
 
 with $w$ as the individual vectors in $W$ that identify the independent sources. In the case for ICA, $u=w^TZ$, where $w$ is a vector in $W$ that identifies a source component, and we are trying to MAXIMIZE $G(...)$ across all our elements in $w^TZ$. Thus, are trying to find a $w$ by maximizing:
@@ -130,9 +134,11 @@ where $g(...)=G'(...)$. See the notes below for the derivation of this update fo
 Since $G(x)=log(cosh(x))$, we have:
 
 $$
+\begin{aligned}
 g(x) = tanh(x)
 \\
 g'(x)=1-tanh^2(x)
+\end{aligned}
 $$
 
 There is one more key point that we need to take care of. Notice that we initialize $w$ randomly, and so it is very possible that in searching for each of the $k$ components, we find the same one(s) multiple times. Rather than repeating random initializations until we find unique ones, we can enforce our iteration process to find different $w$ each time, finding one after the other. This process is called “Deflation”, in which we subtract the already found $w$ vectors from the current one we are searching. Another approach, is a parallel computation approach, in which we find all components simultaneously (often more stable because errors do not propagate from one $w$ to the next).
@@ -142,6 +148,7 @@ To do so, we randomly initialize $W = \begin{matrix}
 \end{matrix}$ to an orthogonal matrix. We then apply **symmetric decorrelation** to force the individual $w$ apart:
 
 $$
+\begin{aligned}
 W \leftarrow W(W^TW)^{-1/2}
 \\
 OR
@@ -151,6 +158,7 @@ W \leftarrow UV^T,
 \text{where}
 \\
 U,\_,V^T = SVD(W)
+\end{aligned}
 $$
 
 (Side note: Remember, singular value decomposition of $W$ results in orthogonal and normal [orthonormal] vectors $U$ that span the column space of $W$ and orthonormal vectors $V$ that span the row space of $W$, where $W \in A \times B$ means $U \in \R^A$ and $V \in \R^B$. Span means that for any vector in the dimensional space, there is a linear combination of the vectors in the set can equal that vector.)
@@ -164,6 +172,7 @@ $$
 Remember, our transforms have all been linear. Thus, the $k$-dimensional space that we have been working in has just been a rotation and scaling of our original space (if $k < N$, then the space is a “lossy” version of the original data space, but for all intents and purposes, imagine it as a rotation of the original). To recover the mixing matrix $A$ (and simultaneously the version of $W$ in the orginal space, which is $A^T$), we can apply the reverse steps that we took to arrive at $W$. Remember, we did the following to transform the problem into our whitened space:
 
 $$
+\begin{aligned}
 X=As
 \\
 (D^{-1/2}E^T)X=(D^{-1/2}E^T)As
@@ -171,11 +180,13 @@ X=As
 (D^{-1/2}E^T)X=Z=\tilde{A}s=(D^{-1/2}E^T)As
 \\
 WZ=s
+\end{aligned}
 $$
 
 and thus we can invert the process to recover the original representation as explained:
 
 $$
+\begin{aligned}
 WZ=s
 \\
 W(D^{-1/2}E^TX)=s
@@ -189,7 +200,7 @@ As=(WD^{-1/2}E^T)^{-1}s
 A=(WD^{-1/2}E^T)^{-1}
 \\
 A=ED^{1/2}W^T
-
+\end{aligned}
 $$
 
 Where $A$ is the mixing matrix! 
