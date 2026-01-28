@@ -1,6 +1,8 @@
 # ICA (see bottom for visualization)
 
-sources:
+See `ica.py` for usable implementation (`ica.ipynb` is for demonstration purposes)
+
+Sources:
 
 https://www.shadecoder.com/topics/ica-in-machine-learning-a-comprehensive-guide-for-2025
 
@@ -145,7 +147,7 @@ There is one more key point that we need to take care of. Notice that we initial
 
 To do so, we randomly initialize $W = \begin{matrix}
 [w_1 & w_2 & ... & w_k]
-\end{matrix}$ to an orthogonal matrix. We then apply **symmetric decorrelation** to force the individual $w$ apart:
+\end{matrix}$ to an orthogonal matrix. We then apply **symmetric orthogonalization** to force the individual $w$ apart:
 
 $$
 \begin{aligned}
